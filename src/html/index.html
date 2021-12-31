@@ -7,12 +7,25 @@
     <title>Evaluación final Módulo 2</title>
     <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
-  <body>
-    <h1>Buscador de series anime</h1>
-    <input class="js-input" type="text" placeholder="Introduce tu serie aquí" />
-    <button class="js-button">Buscar</button>
-    <button>Reset</button>
-    <ul class="js-animeSeries"></ul>
+  <body class="anime__main">
+    <h1 class="anime__title">Buscador de series anime</h1>
+    <div class="anime__div">
+      <input
+        class="anime__div--input js-input"
+        type="text"
+        placeholder="Introduce tu serie aquí"
+      />
+      <button class="anime__div--button js-button">Buscar</button>
+      <button class="anime__div--button js-button-reset">Reset</button>
+    </div>
+    <section>
+      <h1 class="Mis series favoritas"></h1>
+      <nav class="anime__nav">
+        <ul class="js-favSeriesElement"></ul>
+      </nav>
+    </section>
+    <ul class="js-animeSeries anime__list--series"></ul>
+
     <script src="./assets/js/main.js"></script>
   </body>
 </html>
