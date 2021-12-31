@@ -2,8 +2,13 @@
   &__main {
     display: flex;
     flex-direction: column;
-    background-color: rgb(48, 9, 63);
-    height: 100vh;
+    height: 100%;
+    background-image: url('../../assets/images/ryuk.jpg');
+    background-color: black;
+    background-position-x: right;
+    background-position-y: top;
+    background-repeat: no-repeat;
+    object-fit: contain;
   }
   &__title {
     font-family: 'Courier New', Courier, monospace;
@@ -62,4 +67,13 @@
   background-color: black;
   align-items: center;
   padding: 10px;
+}
+
+.collapsed {
+  display: none;
+}
+
+@font-face {
+  font-family: 'KZ BLADERUNNER';
+  src: url(https://www.dafont.com/es/kz-bladerunner.font);
 }

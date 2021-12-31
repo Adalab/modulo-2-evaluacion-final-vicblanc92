@@ -1,96 +1,102 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
-/* eslint-disable camelcase */
 'use strict';
 
-//get data from api
-
-// eslint-disable-next-line no-unused-vars
-let animeSeries = [];
-// eslint-disable-next-line no-unused-vars
+let series = [];
 let favouriteSeries = [];
 
-const input = document.querySelector('.js-input');
+const searchInput = document.querySelector('.js-input');
+const searchBtn = document.querySelector('.js-button');
 const apiUrl = 'https://api.jikan.moe/v3/search/anime?q=';
-const btn = document.querySelector('.js-button');
-const animeSerieshtml = document.querySelector('.js-animeSeries');
+const animeSeriesUl = document.querySelector('.js-animeSeries');
+const resetBtn = document.querySelector('.js-button-reset');
 
-const getApiSearchAnime = () =>
-  fetch(apiUrl + input.value)
+const handleClickSearchBtn = () =>
+  fetch(apiUrl + searchInput.value)
     .then((response) => response.json())
     .then((data) => {
-      animeSeries = data.results;
-
+      series = data.results;
       paintAnimeSeries();
     });
 
-//start page
-
-btn.addEventListener('click', getApiSearchAnime);
-
-//paint series
-
-function getAnimeSerieshtml(serie) {
+const getAnimeSeriesHtml = (serie) => {
   let html = '';
   html += `<div>`;
   html += `<li class="anime__list">${serie.title}</li>`;
   html += `<button data-id="${serie.mal_id}" data-image_url=
   "${serie.image_url}" data-title="${serie.title}" class="js-favbutton js-add-fav">Añadir a mis series favoritas</button>`;
   html += `<img src="${serie.image_url}"`;
+  html += `</div>`;
 
   return html;
-}
-let seriesElement = '';
-function paintAnimeSeries() {
-  animeSeries.innerHTML = '';
-  for (const serie of animeSeries) {
-    seriesElement += getAnimeSerieshtml(serie);
+};
+
+const paintAnimeSeries = () => {
+  let seriesHtml = '';
+
+  for (const serie of series) {
+    seriesHtml += getAnimeSeriesHtml(serie);
   }
-  animeSerieshtml.innerHTML = seriesElement;
+  animeSeriesUl.innerHTML = seriesHtml;
 
-  // eslint-disable-next-line no-use-before-define
-  listenFavButton();
-}
+  addFavBtnListeners();
+};
 
-//listen fav
-
-const listenFavButton = () => {
+const addFavBtnListeners = () => {
   const seriesFavBtns = document.querySelectorAll('.js-add-fav');
   for (const seriesFavBtn of seriesFavBtns) {
-    // eslint-disable-next-line no-use-before-define
-    seriesFavBtn.addEventListener('click', handlerClickFavSeries);
+    seriesFavBtn.addEventListener('click', handleClickFavBtn);
   }
 };
 
-const handlerClickFavSeries = (ev) => {
-  // eslint-disable-next-line no-console
-  // console.log(ev.target.dataset.id);
-  // console.log(favouriteSeries, ev.target.dataset.image_url);
+const handleClickFavBtn = (ev) => {
   let clickedImg = ev.target.dataset.image_url;
   let clickedTitle = ev.target.dataset.title;
-  const favSeriesElement = document.querySelector('.js-favSeriesElement');
+  let clickedId = ev.target.dataset.id;
 
-  favouriteSeries.push({
-    title: clickedTitle,
-    image_url: clickedImg,
-  });
+  let isClickedSerieAlreadyFavourited = false;
 
   for (const favouriteSerie of favouriteSeries) {
-    favSeriesElement.innerHTML += getFavSeries(favouriteSerie);
+    if (clickedId === favouriteSerie.id) {
+      isClickedSerieAlreadyFavourited = true;
+      break;
+    }
+  }
+
+  // isClickedSerieAlreadyFavourited = favouriteSeries.some(
+  //   (favouriteSerie) => clickedId === favouriteSerie.id
+  // );
+
+  if (!isClickedSerieAlreadyFavourited) {
+    favouriteSeries.push({
+      id: clickedId,
+      title: clickedTitle,
+      image_url: clickedImg,
+    });
+
+    renderFavSeries();
   }
 };
 
-const getFavSeries = (favouriteSerie) => {
-  let htmlFav = '';
-  htmlFav += `<li>${favouriteSerie.title}</li>`;
-  htmlFav += ` <img src="${favouriteSerie.image_url}"></img>`;
-  return htmlFav;
+const renderFavSeries = () => {
+  const favSeriesContainer = document.querySelector('.js-favSeriesElement');
+
+  favSeriesContainer.innerHTML = '';
+  for (const favouriteSerie of favouriteSeries) {
+    favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
+  }
 };
 
-// function handlerClickBtnReset() {
-//   btnReset = document.querySelector('.js-button-reset');
-//   favSeriesElement.innerHTML = '';
-//   animeSerieshtml.innerHTML = '';
-// }
-// btnReset.addEventListener('click', handlerClickBtnReset);
+const getFavSerieHtml = (favouriteSerie) => {
+  let html = '';
+  html += `<li data-id=>${favouriteSerie.title}</li>`;
+  html += `<img src="${favouriteSerie.image_url}"></img>`;
+  return html;
+};
+
+const handleClickResetBtn = () => {
+  animeSeriesUl.innerHTML = '';
+  series = [];
+};
+
+searchBtn.addEventListener('click', handleClickSearchBtn);
+resetBtn.addEventListener('click', handleClickResetBtn);
