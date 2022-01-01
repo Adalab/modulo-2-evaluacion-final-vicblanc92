@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
   <body class="anime__main">
-    <h1 class="anime__title">Buscador de series anime</h1>
     <div class="anime__div">
+      <h1 class="anime__title">Buscador de series anime</h1>
       <input
         class="anime__div--input js-input"
         type="text"
@@ -18,13 +18,10 @@
       <button class="anime__div--button js-button">Buscar</button>
       <button class="anime__div--button js-button-reset">Reset</button>
     </div>
-    <section>
-      <h1 class="Mis series favoritas"></h1>
-      <nav class="anime__nav">
-        <ul class="js-favSeriesElement"></ul>
-      </nav>
-    </section>
-    <ul class="js-animeSeries anime__list--series"></ul>
+    <nav class="anime__nav--series">
+      <ul class="js-favSeriesElement anime__list--favSeries"></ul>
+      <ul class="js-animeSeries anime__list--allSeries"></ul>
+    </nav>
 
     <script src="./assets/js/main.js"></script>
   </body>

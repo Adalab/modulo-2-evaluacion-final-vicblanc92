@@ -20,12 +20,12 @@ const handleClickSearchBtn = () =>
 
 const getAnimeSeriesHtml = (serie) => {
   let html = '';
-  html += `<div>`;
-  html += `<li class="anime__list">${serie.title}</li>`;
+  html += `<nav>`;
+  html += `<li class="anime__list--serie">${serie.title}</li>`;
   html += `<button data-id="${serie.mal_id}" data-image_url=
-  "${serie.image_url}" data-title="${serie.title}" class="js-favbutton js-add-fav">Añadir a mis series favoritas</button>`;
+  "${serie.image_url}" data-title="${serie.title}" class="js-favbutton btn__fav--add">Añadir a mis series favoritas</button>`;
   html += `<img src="${serie.image_url}"`;
-  html += `</div>`;
+  html += `</nav>`;
 
   return html;
 };
@@ -42,7 +42,7 @@ const paintAnimeSeries = () => {
 };
 
 const addFavBtnListeners = () => {
-  const seriesFavBtns = document.querySelectorAll('.js-add-fav');
+  const seriesFavBtns = document.querySelectorAll('.btn__fav--add');
   for (const seriesFavBtn of seriesFavBtns) {
     seriesFavBtn.addEventListener('click', handleClickFavBtn);
   }
@@ -61,10 +61,6 @@ const handleClickFavBtn = (ev) => {
       break;
     }
   }
-
-  // isClickedSerieAlreadyFavourited = favouriteSeries.some(
-  //   (favouriteSerie) => clickedId === favouriteSerie.id
-  // );
 
   if (!isClickedSerieAlreadyFavourited) {
     favouriteSeries.push({
@@ -88,8 +84,11 @@ const renderFavSeries = () => {
 
 const getFavSerieHtml = (favouriteSerie) => {
   let html = '';
+  html += `<nav class="anime__nav">`;
   html += `<li data-id=>${favouriteSerie.title}</li>`;
-  html += `<img src="${favouriteSerie.image_url}"></img>`;
+  html += `<button class="btn__fav--delete">Borrar de favoritos</button>`;
+  html += `<img class="anime__image" src="${favouriteSerie.image_url}"></img>`;
+  html += `</nav>`;
   return html;
 };
 

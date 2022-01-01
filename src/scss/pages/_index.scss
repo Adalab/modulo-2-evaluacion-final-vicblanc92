@@ -5,10 +5,17 @@
     height: 100%;
     background-image: url('../../assets/images/ryuk.jpg');
     background-color: black;
+    background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: top;
-    background-repeat: no-repeat;
+
     object-fit: contain;
+  }
+  &__nav {
+    &--series {
+      display: flex;
+      flex-direction: row;
+    }
   }
   &__title {
     font-family: 'Courier New', Courier, monospace;
@@ -18,25 +25,28 @@
     color: rgb(225, 238, 234);
   }
   &__list {
-    padding: 10px;
-    list-style-type: none;
+    display: flex;
 
-    &--series {
-      display: flex;
+    &--allSeries {
+      padding: 10px;
+      list-style-type: none;
+      line-height: 50px;
       margin: 50px;
       color: white;
       font-family: 'Courier New', Courier, monospace;
       font-size: 20px;
     }
+    &--favSeries {
+      padding: 10px;
+      line-height: 50px;
+      margin: 50px;
+      list-style-type: none;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+    }
   }
-  &__nav {
-    display: flex;
-    margin: 50px;
-    list-style-type: none;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-  }
+
   &__div {
     &--input {
       margin: 10px;
@@ -58,22 +68,29 @@
   }
 }
 
-.js-add-fav {
-  display: flex;
-  margin-bottom: 10px;
-  width: 200px;
-  height: 30px;
-  color: white;
-  background-color: black;
-  align-items: center;
-  padding: 10px;
-}
-
-.collapsed {
-  display: none;
-}
-
-@font-face {
-  font-family: 'KZ BLADERUNNER';
-  src: url(https://www.dafont.com/es/kz-bladerunner.font);
+.btn {
+  &__fav {
+    &--add {
+      display: flex;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 30px;
+      color: white;
+      background-color: black;
+      align-items: center;
+      padding: 10px;
+    }
+  }
+  &__fav {
+    &--delete {
+      display: flex;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 30px;
+      color: white;
+      background-color: black;
+      align-items: center;
+      padding: 10px;
+    }
+  }
 }
