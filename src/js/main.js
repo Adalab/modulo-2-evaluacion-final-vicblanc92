@@ -2,7 +2,7 @@
 'use strict';
 
 let series = [];
-let favouriteSeries = [];
+let favSeries = [];
 
 const searchInput = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-button');
@@ -55,7 +55,7 @@ const handleClickFavBtn = (ev) => {
 
   let isClickedSerieAlreadyFavourited = false;
 
-  for (const favouriteSerie of favouriteSeries) {
+  for (const favouriteSerie of favSeries) {
     if (clickedId === favouriteSerie.id) {
       isClickedSerieAlreadyFavourited = true;
       break;
@@ -63,21 +63,22 @@ const handleClickFavBtn = (ev) => {
   }
 
   if (!isClickedSerieAlreadyFavourited) {
-    favouriteSeries.push({
+    favSeries.push({
       id: clickedId,
       title: clickedTitle,
       imageUrl: clickedImg,
     });
 
     paintFavSeries();
+    setInLocalStorage();
   }
 };
 
 const paintFavSeries = () => {
-  const favSeriesContainer = document.querySelector('.js-favSeriesElement');
+  const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
 
   favSeriesContainer.innerHTML = '';
-  for (const favouriteSerie of favouriteSeries) {
+  for (const favouriteSerie of favSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
   }
   addFavBtnDeleteListeners();
@@ -107,13 +108,28 @@ const handleClickResetBtn = () => {
 
 const handleClickDeleteFavBtn = (ev) => {
   let clickedId = ev.target.dataset.id;
-  for (let index = 0; index < favouriteSeries.length; index++) {
-    if (clickedId === favouriteSeries[index].id) {
-      favouriteSeries.splice(index, 1);
+  for (let index = 0; index < favSeries.length; index++) {
+    if (clickedId === favSeries[index].id) {
+      favSeries.splice(index, 1);
     }
   }
   paintFavSeries();
+  setInLocalStorage();
 };
 
 searchBtn.addEventListener('click', handleClickSearchBtn);
 resetBtn.addEventListener('click', handleClickResetBtn);
+
+const getFromLocalStorage = () => {
+  const localStorageFavSeries = localStorage.getItem('FavSeries');
+  if (localStorageFavSeries !== null) {
+    favSeries = JSON.parse(localStorageFavSeries);
+    paintFavSeries();
+  }
+};
+const setInLocalStorage = () => {
+  const stringifyFavSeries = JSON.stringify(favSeries);
+  localStorage.setItem('FavSeries', stringifyFavSeries);
+};
+
+getFromLocalStorage();
