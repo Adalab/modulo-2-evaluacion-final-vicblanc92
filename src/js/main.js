@@ -66,19 +66,27 @@ const handleClickFavBtn = (ev) => {
     favouriteSeries.push({
       id: clickedId,
       title: clickedTitle,
-      image_url: clickedImg,
+      imageUrl: clickedImg,
     });
 
-    renderFavSeries();
+    paintFavSeries();
   }
 };
 
-const renderFavSeries = () => {
+const paintFavSeries = () => {
   const favSeriesContainer = document.querySelector('.js-favSeriesElement');
 
   favSeriesContainer.innerHTML = '';
   for (const favouriteSerie of favouriteSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
+  }
+  addFavBtnDeleteListeners();
+};
+
+const addFavBtnDeleteListeners = () => {
+  const seriesDeleteFavBtns = document.querySelectorAll('.js-delete-favBtn');
+  for (const seriesDeleteFavBtn of seriesDeleteFavBtns) {
+    seriesDeleteFavBtn.addEventListener('click', handleClickDeleteFavBtn);
   }
 };
 
@@ -86,8 +94,8 @@ const getFavSerieHtml = (favouriteSerie) => {
   let html = '';
   html += `<nav class="anime__nav">`;
   html += `<li data-id=>${favouriteSerie.title}</li>`;
-  html += `<button class="btn__fav--delete">Borrar de favoritos</button>`;
-  html += `<img class="anime__image" src="${favouriteSerie.image_url}"></img>`;
+  html += `<button class="js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}">Borrar de favoritos</button>`;
+  html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
   html += `</nav>`;
   return html;
 };
@@ -95,6 +103,16 @@ const getFavSerieHtml = (favouriteSerie) => {
 const handleClickResetBtn = () => {
   animeSeriesUl.innerHTML = '';
   series = [];
+};
+
+const handleClickDeleteFavBtn = (ev) => {
+  let clickedId = ev.target.dataset.id;
+  for (let index = 0; index < favouriteSeries.length; index++) {
+    if (clickedId === favouriteSeries[index].id) {
+      favouriteSeries.splice(index, 1);
+    }
+  }
+  paintFavSeries();
 };
 
 searchBtn.addEventListener('click', handleClickSearchBtn);

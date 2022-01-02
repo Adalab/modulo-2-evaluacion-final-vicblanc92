@@ -18,11 +18,11 @@
     }
   }
   &__title {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Bungee Shade', cursive;
     padding: 20px;
     margin: 50px;
-    font-size: 40px;
-    color: rgb(225, 238, 234);
+    font-size: 50px;
+    color: rgb(255, 4, 4);
   }
   &__list {
     display: flex;
@@ -57,6 +57,8 @@
       color: rgb(255, 255, 255);
       font-size: 20px;
       padding: 5px 0 5px 15px;
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: capitalize;
     }
 
     &--button {
@@ -64,6 +66,7 @@
       height: 30px;
       margin: 10px;
       font-size: 20px;
+      font-family: 'Courier New', Courier, monospace;
     }
   }
 }
@@ -93,4 +96,8 @@
       padding: 10px;
     }
   }
+}
+
+.collapsed {
+  display: none;
 }
