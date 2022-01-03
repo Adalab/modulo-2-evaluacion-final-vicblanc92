@@ -1,0 +1,87 @@
+.page {
+  background-color: rgb(0, 0, 0);
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../assets/images/ryuk.jpg');
+    background-color: black;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: top;
+    object-fit: contain;
+    height: 100%;
+
+    &--series {
+      display: flex;
+      flex-direction: row;
+    }
+    &--results {
+      color: white;
+      font-family: 'Bungee Shade', cursive;
+    }
+    &--title {
+      color: white;
+      margin: 20px;
+      font-family: 'Bungee Shade', cursive;
+      font-size: 25px;
+      height: 30px;
+    }
+  }
+  &__list {
+    display: flex;
+
+    &--allSeries {
+      border: 5px solid rgb(255, 255, 255);
+      padding: 30px;
+      list-style-type: none;
+      line-height: 50px;
+      margin: 50px;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      width: 300px;
+    }
+    &--favSeries {
+      border: 5px solid rgb(255, 4, 4);
+      padding: 50px;
+      line-height: 50px;
+      margin: 50px;
+      list-style-type: none;
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+    }
+  }
+}
+
+.btn {
+  &__fav {
+    &--add {
+      display: flex;
+      margin-bottom: 10px;
+      width: 200px;
+      height: 30px;
+      color: white;
+      background-color: black;
+      align-items: center;
+      padding: 10px;
+    }
+    &--delete {
+      color: red;
+      margin: 20px;
+      font-size: 40px;
+      transform: translateY(-5px);
+    }
+    &--deleteAll {
+      background-color: rgb(0, 0, 0);
+      color: rgb(252, 252, 252);
+      height: 30px;
+      width: 200px;
+    }
+  }
+}
+
+.favSeries {
+  border: 3px solid rgb(142, 25, 146);
+  color: rgb(255, 255, 255);
+}

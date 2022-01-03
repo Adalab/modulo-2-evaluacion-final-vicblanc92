@@ -19,24 +19,9 @@
 
     <title>Evaluación final Módulo 2</title>
   </head>
-  <body class="anime__main">
-    <div class="anime__div">
-      <h1 class="anime__title">Buscador de series anime</h1>
-      <input
-        class="anime__div--input js-input"
-        type="text"
-        value="naruto"
-        placeholder="Introduce tu serie aquí"
-      />
-      <button class="anime__div--button js-button">Buscar</button>
-      <button class="anime__div--button js-button-reset">Reset</button>
-    </div>
-    <nav class="anime__nav--series">
-      <h1 class="js-seriesFav anime__nav--title"></h1>
-      <ul class="js-favSeriesContainer anime__list--favSeries"></ul>
-      <h1 class="js-series-results anime__nav--title--results"></h1>
-      <ul class="js-animeSeries anime__list--allSeries"></ul>
-    </nav>
+  <body>
+    <include src="./partials/header.html"></include>
+    <include src="partials/page.html"></include>
     <script src="./assets/js/main.js"></script>
   </body>
 </html>

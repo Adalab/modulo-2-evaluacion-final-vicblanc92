@@ -1,0 +1,35 @@
+.header {
+  background-color: rgb(0, 0, 0);
+
+  &--input {
+    margin: 10px;
+    width: 300px;
+    height: 50px;
+    margin-left: 60px;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    border: 1px solid red;
+    font-size: 20px;
+    padding: 5px 0 5px 15px;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: capitalize;
+  }
+
+  &--button {
+    width: 100px;
+    height: 30px;
+    margin: 10px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+}
+
+.title {
+  color: red;
+  font-size: 40px;
+  font-family: 'Bungee Shade', cursive;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 50px;
+}

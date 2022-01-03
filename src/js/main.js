@@ -1,6 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable camelcase */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 'use strict';
 
@@ -14,6 +11,7 @@ const seriesContainer = document.querySelector('.js-animeSeries');
 const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
 const resetBtn = document.querySelector('.js-button-reset');
 const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
+const favSeriesTitle = document.querySelector('.js-favSeriesTitle');
 
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
@@ -25,7 +23,7 @@ const handleClickSearchBtn = () =>
 
 const getSeriesHtml = (serie) => {
   let html = '';
-  html += `<li class="anime__list--serie">${serie.title}`;
+  html += `<li class="list--serie">${serie.title}`;
   html += `<button data-id="${serie.mal_id}" data-image_url=
   "${serie.image_url}" data-title="${serie.title}" class="js-favbutton btn__fav--add">Añadir a mis series favoritas</button>`;
   if (!serie.image_url) {
@@ -41,26 +39,26 @@ const getSeriesHtml = (serie) => {
 
 const paintSeries = () => {
   let seriesHtml = '';
-  const seriesTitle = document.querySelector('.js-series-results');
+  const SeriesTitle = document.querySelector('.js-series-results');
 
   for (const serie of series) {
     seriesHtml += getSeriesHtml(serie);
   }
   seriesContainer.innerHTML = seriesHtml;
-  seriesTitle.innerHTML = 'Resultados';
+  SeriesTitle.innerHTML = 'Resultados';
 
   addFavBtnListeners();
 };
 
 const addFavBtnListeners = () => {
-  const seriesFavBtns = document.querySelectorAll('.btn__fav--add');
-  for (const seriesFavBtn of seriesFavBtns) {
-    seriesFavBtn.addEventListener('click', handleClickFavBtn);
+  const favSeriesBtns = document.querySelectorAll('.btn__fav--add');
+  for (const favSeriesBtn of favSeriesBtns) {
+    favSeriesBtn.addEventListener('click', handleClickFavBtn);
   }
 };
 
 const handleClickFavBtn = (ev) => {
-  ev.target.parentNode.classList.add('seriesFav');
+  ev.target.parentNode.classList.add('favSeries');
 
   let clickedImg = ev.target.dataset.image_url;
   let clickedTitle = ev.target.dataset.title;
@@ -88,15 +86,12 @@ const handleClickFavBtn = (ev) => {
 };
 
 const paintFavSeries = () => {
-  const favSeriesTitle = document.querySelector('.js-seriesFav');
-
   favSeriesContainer.innerHTML = '';
 
   for (const favouriteSerie of favSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
   }
   favSeriesTitle.innerHTML = 'Mis series favoritas';
-  favSeriesContainer.innerHTML = `<button class="js-btn-delete-allFav btn__fav--deleteAll">Borrar todos</button>`;
 
   addFavBtnDeleteListeners();
 };
@@ -113,6 +108,7 @@ const getFavSerieHtml = (favouriteSerie) => {
   html += `<li data-id=>${favouriteSerie.title}</li>`;
   html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
   html += `<i class="fas fa-times-circle js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}"></i>`;
+
   return html;
 };
 
@@ -135,6 +131,8 @@ const handleClickDeleteFavBtn = (ev) => {
 const handleClickDeleteAllFavBtn = () => {
   favSeriesContainer.innerHTML = '';
   favSeries = [];
+
+  paintFavSeries();
 };
 
 const getFromLocalStorage = () => {
