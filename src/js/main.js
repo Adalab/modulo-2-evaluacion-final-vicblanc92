@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 'use strict';
 
@@ -7,36 +10,44 @@ let favSeries = [];
 const searchInput = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-button');
 const apiUrl = 'https://api.jikan.moe/v3/search/anime?q=';
-const animeSeriesUl = document.querySelector('.js-animeSeries');
+const seriesContainer = document.querySelector('.js-animeSeries');
+const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
 const resetBtn = document.querySelector('.js-button-reset');
+const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
 
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
     .then((response) => response.json())
     .then((data) => {
       series = data.results;
-      paintAnimeSeries();
+      paintSeries();
     });
 
-const getAnimeSeriesHtml = (serie) => {
+const getSeriesHtml = (serie) => {
   let html = '';
-  html += `<nav>`;
-  html += `<li class="anime__list--serie">${serie.title}</li>`;
+  html += `<li class="anime__list--serie">${serie.title}`;
   html += `<button data-id="${serie.mal_id}" data-image_url=
   "${serie.image_url}" data-title="${serie.title}" class="js-favbutton btn__fav--add">Añadir a mis series favoritas</button>`;
-  html += `<img src="${serie.image_url}"`;
-  html += `</nav>`;
+  if (!serie.image_url) {
+    html += `<img src='https://via.placeholder.com/210x295/ffffff/666666/?text=image%20not%20found'>`;
+  } else {
+    html += `<img src="${serie.image_url}">`;
+  }
+
+  html += `</li>`;
 
   return html;
 };
 
-const paintAnimeSeries = () => {
+const paintSeries = () => {
   let seriesHtml = '';
+  const seriesTitle = document.querySelector('.js-series-results');
 
   for (const serie of series) {
-    seriesHtml += getAnimeSeriesHtml(serie);
+    seriesHtml += getSeriesHtml(serie);
   }
-  animeSeriesUl.innerHTML = seriesHtml;
+  seriesContainer.innerHTML = seriesHtml;
+  seriesTitle.innerHTML = 'Resultados';
 
   addFavBtnListeners();
 };
@@ -49,6 +60,8 @@ const addFavBtnListeners = () => {
 };
 
 const handleClickFavBtn = (ev) => {
+  ev.target.parentNode.classList.add('seriesFav');
+
   let clickedImg = ev.target.dataset.image_url;
   let clickedTitle = ev.target.dataset.title;
   let clickedId = ev.target.dataset.id;
@@ -75,12 +88,16 @@ const handleClickFavBtn = (ev) => {
 };
 
 const paintFavSeries = () => {
-  const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
+  const favSeriesTitle = document.querySelector('.js-seriesFav');
 
   favSeriesContainer.innerHTML = '';
+
   for (const favouriteSerie of favSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
   }
+  favSeriesTitle.innerHTML = 'Mis series favoritas';
+  favSeriesContainer.innerHTML = `<button class="js-btn-delete-allFav btn__fav--deleteAll">Borrar todos</button>`;
+
   addFavBtnDeleteListeners();
 };
 
@@ -93,16 +110,14 @@ const addFavBtnDeleteListeners = () => {
 
 const getFavSerieHtml = (favouriteSerie) => {
   let html = '';
-  html += `<nav class="anime__nav">`;
   html += `<li data-id=>${favouriteSerie.title}</li>`;
-  html += `<button class="js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}">Borrar de favoritos</button>`;
   html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
-  html += `</nav>`;
+  html += `<i class="fas fa-times-circle js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}"></i>`;
   return html;
 };
 
 const handleClickResetBtn = () => {
-  animeSeriesUl.innerHTML = '';
+  seriesContainer.innerHTML = '';
   series = [];
 };
 
@@ -117,8 +132,10 @@ const handleClickDeleteFavBtn = (ev) => {
   setInLocalStorage();
 };
 
-searchBtn.addEventListener('click', handleClickSearchBtn);
-resetBtn.addEventListener('click', handleClickResetBtn);
+const handleClickDeleteAllFavBtn = () => {
+  favSeriesContainer.innerHTML = '';
+  favSeries = [];
+};
 
 const getFromLocalStorage = () => {
   const localStorageFavSeries = localStorage.getItem('FavSeries');
@@ -131,5 +148,8 @@ const setInLocalStorage = () => {
   const stringifyFavSeries = JSON.stringify(favSeries);
   localStorage.setItem('FavSeries', stringifyFavSeries);
 };
-
 getFromLocalStorage();
+
+searchBtn.addEventListener('click', handleClickSearchBtn);
+resetBtn.addEventListener('click', handleClickResetBtn);
+deleteAllFavBtn.addEventListener('click', handleClickDeleteAllFavBtn);

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,9 +12,12 @@
       href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Open+Sans&family=Open+Sans+Condensed:wght@300&family=Roboto+Slab:wght@100;300&family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/b03b11f941.js"
+      crossorigin="anonymous"
+    ></script>
 
     <title>Evaluación final Módulo 2</title>
-    <link rel="stylesheet" href="./assets/css/main.css" />
   </head>
   <body class="anime__main">
     <div class="anime__div">
@@ -28,10 +32,11 @@
       <button class="anime__div--button js-button-reset">Reset</button>
     </div>
     <nav class="anime__nav--series">
+      <h1 class="js-seriesFav anime__nav--title"></h1>
       <ul class="js-favSeriesContainer anime__list--favSeries"></ul>
+      <h1 class="js-series-results anime__nav--title--results"></h1>
       <ul class="js-animeSeries anime__list--allSeries"></ul>
     </nav>
-
     <script src="./assets/js/main.js"></script>
   </body>
 </html>
