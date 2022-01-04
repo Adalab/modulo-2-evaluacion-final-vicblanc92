@@ -157,7 +157,7 @@ const handleClickDeleteAllFavBtn = () => {
 };
 
 const getFromLocalStorage = () => {
-  const localStorageFavSeries = localStorage.getItem('FavSeries');
+  const localStorageFavSeries = localStorage.getItem('favSeries');
   if (localStorageFavSeries !== null) {
     favSeries = JSON.parse(localStorageFavSeries);
     paintFavSeries();
