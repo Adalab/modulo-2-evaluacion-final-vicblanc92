@@ -2,11 +2,12 @@
   &__nav {
     display: flex;
     flex-direction: column;
-    background-image: url('../../assets/images/ryuk.jpg');
+    background-image: url('../../assets/images/pokemon.png');
     background-repeat: no-repeat;
+    object-fit: contain;
     background-position-x: right;
     background-position-y: top;
-    object-fit: contain;
+    background-size: 100%;
     min-height: 100vh;
     height: 100%;
     background-color: rgb(0, 0, 0);
@@ -21,24 +22,24 @@
       flex-direction: row;
     }
     &--results {
-      color: white;
+      color: rgb(240, 119, 20);
       font-family: 'Bungee Shade', cursive;
-      transform: translate(100px, 20px);
+      transform: translate(100px, 35px);
     }
     &--title {
-      color: white;
+      color: rgb(240, 119, 20);
       margin: 20px;
       font-family: 'Bungee Shade', cursive;
       font-size: 25px;
       height: 30px;
-      transform: translate(40px);
+      transform: translate(50px);
     }
   }
   &__list {
     display: flex;
 
     &--allSeries {
-      border: 5px solid rgb(255, 255, 255);
+      border: 5px solid rgb(65, 225, 164);
       padding: 30px;
       list-style-type: none;
       line-height: 50px;
@@ -46,10 +47,10 @@
       color: white;
       font-family: 'Courier New', Courier, monospace;
       font-size: 20px;
-      width: 300px;
+      width: 350px;
     }
     &--favSeries {
-      border: 5px solid rgb(255, 4, 4);
+      border: 5px solid rgb(65, 225, 164);
       padding: 50px;
       line-height: 50px;
       margin: 50px;
@@ -65,6 +66,9 @@
   &__fav {
     &--add {
       display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
       margin-bottom: 10px;
       width: 200px;
       height: 30px;
@@ -74,7 +78,7 @@
       padding: 10px;
     }
     &--delete {
-      color: red;
+      color: rgb(240, 119, 20);
       margin: 20px;
       font-size: 40px;
       transform: translateY(-5px);
@@ -84,13 +88,16 @@
       color: rgb(252, 252, 252);
       height: 30px;
       width: 200px;
-      transform: translate(150px);
+      transform: translate(100px);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
     }
   }
 }
 
 .favSeries {
-  border: 3px solid rgb(142, 25, 146);
+  border: 3px solid rgb(240, 119, 20);
   color: rgb(255, 255, 255);
+  width: 230px;
   margin: 10px;
 }

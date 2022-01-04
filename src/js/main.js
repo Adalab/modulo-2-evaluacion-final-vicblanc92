@@ -38,14 +38,13 @@ const getSeriesHtml = (serie) => {
   } else {
     html += `<li class="list--serie">${serie.title}`;
   }
-  html += `<button data-id="${serie.mal_id}" data-image_url=
-  "${serie.image_url}" data-title="${serie.title}" class="js-favbutton btn__fav--add">Añadir a mis series favoritas</button>`;
+  html += `<i class="far fa-star js-favbutton btn__fav--add"data-id="${serie.mal_id}" data-image_url=
+  "${serie.image_url}" data-title="${serie.title}"></i>`;
   if (!serie.image_url) {
     html += `<img src='https://via.placeholder.com/210x295/ffffff/666666/?text=image%20not%20found'>`;
   } else {
     html += `<img src="${serie.image_url}">`;
   }
-
   html += `</li>`;
 
   return html;
