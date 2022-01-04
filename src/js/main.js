@@ -1,9 +1,11 @@
 /* eslint-disable no-use-before-define */
 'use strict';
 
+//arrays de series y series favoritas
 let series = [];
 let favSeries = [];
 
+//variables globales
 const searchInput = document.querySelector('.js-input');
 const searchBtn = document.querySelector('.js-button');
 const apiUrl = 'https://api.jikan.moe/v3/search/anime?q=';
@@ -14,6 +16,7 @@ const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
 const favSeriesTitle = document.querySelector('.js-favSeriesTitle');
 const SeriesTitle = document.querySelector('.js-series-results');
 
+//ejecución de la función fetch para obtener api de series de anime
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
     .then((response) => response.json())
@@ -22,9 +25,11 @@ const handleClickSearchBtn = () =>
       paintSeries();
     });
 
+//pintar los titulos en html
 SeriesTitle.innerHTML = 'Resultados';
 favSeriesTitle.innerHTML = 'Mis series favoritas';
 
+//función que pinta todos los elementos en html al obtener respuesta de la api//comprueba las series pintadas son o no favoritas.
 const getSeriesHtml = (serie) => {
   let isClickedSerieAlreadyFavourited = false;
 
@@ -105,6 +110,19 @@ const handleClickFavBtn = (ev) => {
   setInLocalStorage();
 };
 
+//función para pintar cada una de las series favoritas
+
+const getFavSerieHtml = (favouriteSerie) => {
+  let html = '';
+  html += `<li data-id=>${favouriteSerie.title}</li>`;
+  html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
+  html += `<i class="fas fa-times-circle js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}"></i>`;
+
+  return html;
+};
+
+//función encargada de pintar las series favoritas, se recorren todas con un bucle y se pinta una por una y se añaden con cada vez mediante la función anterior que pintaba cada una
+
 const paintFavSeries = () => {
   favSeriesContainer.innerHTML = '';
 
@@ -116,6 +134,8 @@ const paintFavSeries = () => {
   setInLocalStorage();
 };
 
+//función para añadir un botón de borrar los favoritos . Nos traemos un btón declarando una constante y hacemos un bucle para poder recorrer todos  y añadirle luego al botón un listener para que se ejecute otra funcion al hacer click.
+
 const addFavBtnDeleteListeners = () => {
   const seriesDeleteFavBtns = document.querySelectorAll('.js-delete-favBtn');
   for (const seriesDeleteFavBtn of seriesDeleteFavBtns) {
@@ -123,19 +143,13 @@ const addFavBtnDeleteListeners = () => {
   }
 };
 
-const getFavSerieHtml = (favouriteSerie) => {
-  let html = '';
-  html += `<li data-id=>${favouriteSerie.title}</li>`;
-  html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
-  html += `<i class="fas fa-times-circle js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}"></i>`;
-
-  return html;
-};
-
 const handleClickResetBtn = () => {
   seriesContainer.innerHTML = '';
   series = [];
 };
+
+//esta función se encarga de gestionar el botón de borrar favoritos uno por uno. Recorremos con un bucle todas las series y le decimos que borre una en cuanto se clicke.
+//después se llama a las otras funciones para que se vuelvan a pintar las series y las series favoritas además de guardarlo en el localstorage.
 
 const handleClickDeleteFavBtn = (ev) => {
   let clickedId = ev.target.dataset.id;
@@ -149,6 +163,8 @@ const handleClickDeleteFavBtn = (ev) => {
   setInLocalStorage();
 };
 
+//esta función se encarga de borrar todos los favoritos, dejamos tanto el array como lo que pintamos en html vacio y volvemos a pintar las series favoritas, quedandose de este modo el recuadro vacio.
+
 const handleClickDeleteAllFavBtn = () => {
   favSeriesContainer.innerHTML = '';
   favSeries = [];
@@ -156,8 +172,10 @@ const handleClickDeleteAllFavBtn = () => {
   paintFavSeries();
 };
 
+//con estas funciones guardamos la información en el local storage, para que una vez recarguemos la página, las series favoritas no desaparezcan.
+
 const getFromLocalStorage = () => {
-  const localStorageFavSeries = localStorage.getItem('FavSeries');
+  const localStorageFavSeries = localStorage.getItem('favSeries');
   if (localStorageFavSeries !== null) {
     favSeries = JSON.parse(localStorageFavSeries);
     paintFavSeries();
@@ -169,6 +187,7 @@ const setInLocalStorage = () => {
 };
 getFromLocalStorage();
 
+//estos son los listeners. Al hacer click sobre los botones. se ejecutan las funcioones que van entre paréntesis.
 searchBtn.addEventListener('click', handleClickSearchBtn);
 resetBtn.addEventListener('click', handleClickResetBtn);
 deleteAllFavBtn.addEventListener('click', handleClickDeleteAllFavBtn);
