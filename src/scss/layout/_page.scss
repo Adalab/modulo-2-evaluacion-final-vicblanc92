@@ -24,7 +24,8 @@
     &--results {
       color: rgb(240, 119, 20);
       font-family: 'Bungee Shade', cursive;
-      transform: translate(100px, 35px);
+      text-align: center;
+      transform: translateY(20px);
     }
     &--title {
       color: rgb(240, 119, 20);
@@ -32,7 +33,7 @@
       font-family: 'Bungee Shade', cursive;
       font-size: 25px;
       height: 30px;
-      transform: translate(50px);
+      text-align: center;
     }
   }
   &__list {
@@ -48,6 +49,7 @@
       font-family: 'Courier New', Courier, monospace;
       font-size: 20px;
       width: 350px;
+      transform: translateY(-10px);
     }
     &--favSeries {
       border: 5px solid rgb(65, 225, 164);

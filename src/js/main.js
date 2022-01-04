@@ -12,6 +12,7 @@ const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
 const resetBtn = document.querySelector('.js-button-reset');
 const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
 const favSeriesTitle = document.querySelector('.js-favSeriesTitle');
+const SeriesTitle = document.querySelector('.js-series-results');
 
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
@@ -20,6 +21,9 @@ const handleClickSearchBtn = () =>
       series = data.results;
       paintSeries();
     });
+
+SeriesTitle.innerHTML = 'Resultados';
+favSeriesTitle.innerHTML = 'Mis series favoritas';
 
 const getSeriesHtml = (serie) => {
   let isClickedSerieAlreadyFavourited = false;
@@ -52,13 +56,11 @@ const getSeriesHtml = (serie) => {
 
 const paintSeries = () => {
   let seriesHtml = '';
-  const SeriesTitle = document.querySelector('.js-series-results');
 
   for (const serie of series) {
     seriesHtml += getSeriesHtml(serie);
   }
   seriesContainer.innerHTML = seriesHtml;
-  SeriesTitle.innerHTML = 'Resultados';
 
   addFavBtnListeners();
 };
@@ -68,6 +70,7 @@ const addFavBtnListeners = () => {
   for (const favSeriesBtn of favSeriesBtns) {
     favSeriesBtn.addEventListener('click', handleClickFavBtn);
   }
+  setInLocalStorage();
 };
 
 const handleClickFavBtn = (ev) => {
@@ -108,7 +111,6 @@ const paintFavSeries = () => {
   for (const favouriteSerie of favSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
   }
-  favSeriesTitle.innerHTML = 'Mis series favoritas';
 
   addFavBtnDeleteListeners();
   setInLocalStorage();
@@ -163,7 +165,7 @@ const getFromLocalStorage = () => {
 };
 const setInLocalStorage = () => {
   const stringifyFavSeries = JSON.stringify(favSeries);
-  localStorage.setItem('FavSeries', stringifyFavSeries);
+  localStorage.setItem('favSeries', stringifyFavSeries);
 };
 getFromLocalStorage();
 
