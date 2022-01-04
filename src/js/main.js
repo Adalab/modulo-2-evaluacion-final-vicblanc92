@@ -22,8 +22,22 @@ const handleClickSearchBtn = () =>
     });
 
 const getSeriesHtml = (serie) => {
+  let isClickedSerieAlreadyFavourited = false;
+
+  for (const favouriteSerie of favSeries) {
+    if (serie.mal_id === favouriteSerie.id) {
+      isClickedSerieAlreadyFavourited = true;
+      break;
+    }
+  }
+
   let html = '';
-  html += `<li class="list--serie">${serie.title}`;
+
+  if (isClickedSerieAlreadyFavourited === true) {
+    html += `<li class="favSeries list--serie">${serie.title}`;
+  } else {
+    html += `<li class="list--serie">${serie.title}`;
+  }
   html += `<button data-id="${serie.mal_id}" data-image_url=
   "${serie.image_url}" data-title="${serie.title}" class="js-favbutton btn__fav--add">Añadir a mis series favoritas</button>`;
   if (!serie.image_url) {
@@ -79,10 +93,14 @@ const handleClickFavBtn = (ev) => {
       title: clickedTitle,
       imageUrl: clickedImg,
     });
-
-    paintFavSeries();
-    setInLocalStorage();
+  } else {
+    ev.target.parentNode.classList.remove('favSeries');
+    const deleteFavSerieIndex = favSeries.indexOf(clickedId);
+    favSeries.splice(deleteFavSerieIndex, 1);
   }
+
+  paintFavSeries();
+  setInLocalStorage();
 };
 
 const paintFavSeries = () => {
@@ -94,6 +112,7 @@ const paintFavSeries = () => {
   favSeriesTitle.innerHTML = 'Mis series favoritas';
 
   addFavBtnDeleteListeners();
+  setInLocalStorage();
 };
 
 const addFavBtnDeleteListeners = () => {
@@ -125,6 +144,7 @@ const handleClickDeleteFavBtn = (ev) => {
     }
   }
   paintFavSeries();
+  paintSeries();
   setInLocalStorage();
 };
 
