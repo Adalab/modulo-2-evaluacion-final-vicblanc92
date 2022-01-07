@@ -13,6 +13,15 @@ const resetBtn = document.querySelector('.js-button-reset');
 const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
 const favSeriesTitle = document.querySelector('.js-favSeriesTitle');
 const SeriesTitle = document.querySelector('.js-series-results');
+const logBtn = document.querySelector('.js-log-btn');
+
+const paintFavLog = () => {
+  for (const favSerie of favSeries) {
+    console.log(favSerie.title);
+  }
+};
+
+logBtn.addEventListener('click', paintFavLog);
 
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
@@ -44,6 +53,9 @@ const getSeriesHtml = (serie) => {
   }
   html += `<i class="far fa-star js-favbutton btn__fav--add"data-id="${serie.mal_id}" data-image_url=
   "${serie.image_url}" data-title="${serie.title}"></i>`;
+
+  html += `<p>${serie.type}</p>`;
+
   if (!serie.image_url) {
     html += `<img src='https://via.placeholder.com/210x295/ffffff/666666/?text=image%20not%20found'>`;
   } else {
