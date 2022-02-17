@@ -11,17 +11,6 @@ const seriesContainer = document.querySelector('.js-animeSeries');
 const favSeriesContainer = document.querySelector('.js-favSeriesContainer');
 const resetBtn = document.querySelector('.js-button-reset');
 const deleteAllFavBtn = document.querySelector('.js-btn-delete-allFav');
-const favSeriesTitle = document.querySelector('.js-favSeriesTitle');
-const SeriesTitle = document.querySelector('.js-series-results');
-const logBtn = document.querySelector('.js-log-btn');
-
-const paintFavLog = () => {
-  for (const favSerie of favSeries) {
-    console.log(favSerie.title);
-  }
-};
-
-logBtn.addEventListener('click', paintFavLog);
 
 const handleClickSearchBtn = () =>
   fetch(apiUrl + searchInput.value)
@@ -30,9 +19,6 @@ const handleClickSearchBtn = () =>
       series = data.results;
       paintSeries();
     });
-
-SeriesTitle.innerHTML = 'Resultados';
-favSeriesTitle.innerHTML = 'Mis series favoritas';
 
 const getSeriesHtml = (serie) => {
   let isClickedSerieAlreadyFavourited = false;
@@ -46,21 +32,18 @@ const getSeriesHtml = (serie) => {
 
   let html = '';
 
-  if (isClickedSerieAlreadyFavourited === true) {
-    html += `<li class="favSeries list--serie">${serie.title}`;
-  } else {
-    html += `<li class="list--serie">${serie.title}`;
-  }
-  html += `<i class="far fa-star js-favbutton btn__fav--add"data-id="${serie.mal_id}" data-image_url=
-  "${serie.image_url}" data-title="${serie.title}"></i>`;
-
-  html += `<p>${serie.type}</p>`;
+  html += `<li class="${
+    isClickedSerieAlreadyFavourited ? 'favSeries' : ''
+  } page__list--serie"><p class="page__list--serieTitle">${serie.title}</p>`;
 
   if (!serie.image_url) {
     html += `<img src='https://via.placeholder.com/210x295/ffffff/666666/?text=image%20not%20found'>`;
   } else {
-    html += `<img src="${serie.image_url}">`;
+    html += `<img class="images" src="${serie.image_url}">`;
   }
+
+  html += `<button class="js-favbutton btn__fav--add"data-id="${serie.mal_id}" data-image_url=
+  "${serie.image_url}" data-title="${serie.title}">Añadir a favoritos</button>`;
   html += `</li>`;
 
   return html;
@@ -122,10 +105,10 @@ const paintFavSeries = () => {
 
   for (const favouriteSerie of favSeries) {
     favSeriesContainer.innerHTML += getFavSerieHtml(favouriteSerie);
+    deleteAllFavBtn.classList.remove('hidden');
   }
 
   addFavBtnDeleteListeners();
-  setInLocalStorage();
 };
 
 const addFavBtnDeleteListeners = () => {
@@ -138,8 +121,10 @@ const addFavBtnDeleteListeners = () => {
 const getFavSerieHtml = (favouriteSerie) => {
   let html = '';
   html += `<li data-id=>${favouriteSerie.title}</li>`;
-  html += `<img class="anime__image" src="${favouriteSerie.imageUrl}"></img>`;
+  html += `<div>`;
+  html += `<img class="images" src="${favouriteSerie.imageUrl}"></img>`;
   html += `<i class="fas fa-times-circle js-delete-favBtn btn__fav--delete" data-id="${favouriteSerie.id}"></i>`;
+  html += `</div>`;
 
   return html;
 };
@@ -164,6 +149,7 @@ const handleClickDeleteFavBtn = (ev) => {
 const handleClickDeleteAllFavBtn = () => {
   favSeriesContainer.innerHTML = '';
   favSeries = [];
+  deleteAllFavBtn.classList.add('hidden');
 
   paintFavSeries();
 };

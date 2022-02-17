@@ -1,36 +1,127 @@
 .header {
-  background-color: rgb(0, 0, 0);
+  background-image: url(../../assets/images/chi.png);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: center;
+  background-size: 220px;
+  height: 50vh;
+
+  &__title {
+    color: rgb(255, 215, 184);
+    line-height: 40px;
+    letter-spacing: 5px;
+    text-shadow: 3px 3px 15px rgb(243, 104, 104),
+      -2px 1px 30px rgb(245, 179, 129);
+    font-size: 14px;
+    font-family: 'Russo One', sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+  &__div {
+    &--input {
+      display: flex;
+      justify-content: center;
+    }
+    &--button {
+      display: flex;
+      justify-content: center;
+    }
+    &--wrapper {
+      margin-top: 85px;
+    }
+  }
 
   &--input {
+    border-radius: 5px;
     margin: 10px;
-    width: 300px;
-    height: 50px;
-    margin-left: 60px;
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255);
-    color: rgb(240, 119, 20);
-    border: 1px solid;
+    width: 200px;
+    height: 40px;
+    background-color: rgb(12, 61, 28);
+    color: rgb(253, 253, 253);
+    border: 1px solid rgb(255, 255, 255);
     font-size: 20px;
     padding: 5px 0 5px 15px;
-    font-family: 'Courier New', Courier, monospace;
-    text-transform: capitalize;
+    font-family: $font-text;
+    text-align: justify;
   }
 
   &--button {
     width: 100px;
-    height: 30px;
+    height: 25px;
     margin: 10px;
-    font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: $font-text;
+    background-color: rgb(243, 104, 104);
+    color: rgb(255, 255, 255);
+    border: 2px solid rgb(255, 255, 255);
   }
 }
 
-.title {
-  color: rgb(65, 225, 164);
-  font-size: 40px;
-  font-family: 'Bungee Shade', cursive;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 50px;
+@media (min-width: 768px) {
+  .header {
+    background-size: contain;
+
+    &__title {
+      font-size: 25px;
+      margin-top: 40px;
+    }
+    &__div {
+      &--wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 170px;
+      }
+    }
+  }
+}
+@media (min-width: 1024px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-size: contain;
+    background-position: right;
+    &--input {
+      border-radius: 5px;
+      margin: 10px;
+      width: 200px;
+      height: 40px;
+      background-color: rgb(12, 61, 28);
+      color: rgb(253, 253, 253);
+      border: 1px solid rgb(255, 255, 255);
+      font-size: 20px;
+      padding: 5px 0 5px 15px;
+      font-family: $font-text;
+      text-align: justify;
+    }
+
+    &--button {
+      width: 120px;
+      height: 30px;
+      margin: 10px;
+      border-radius: 5px;
+      font-size: 20px;
+      font-family: $font-text;
+      background-color: rgb(243, 104, 104);
+      color: rgb(255, 255, 255);
+    }
+
+    &__title {
+      font-size: 50px;
+      justify-content: center;
+    }
+    &__div {
+      &--wrapper {
+        margin-top: 50px;
+      }
+    }
+  }
+}
+
+.hidden {
+  display: none;
 }
