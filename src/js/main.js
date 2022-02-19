@@ -142,7 +142,6 @@ const handleClickDeleteFavBtn = (ev) => {
     }
   }
   paintFavSeries();
-  paintSeries();
   setInLocalStorage();
 };
 
@@ -152,6 +151,7 @@ const handleClickDeleteAllFavBtn = () => {
   deleteAllFavBtn.classList.add('hidden');
 
   paintFavSeries();
+  paintSeries();
 };
 
 const getFromLocalStorage = () => {

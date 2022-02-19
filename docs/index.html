@@ -12,6 +12,15 @@
       href="https://fonts.googleapis.com/css2?family=Bungee+Shade&family=Open+Sans&family=Open+Sans+Condensed:wght@300&family=Roboto+Slab:wght@100;300&family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&family=Open+Sans+Condensed:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Serif+Display&family=Open+Sans+Condensed:wght@300&family=Russo+One&display=swap"
+      rel="stylesheet"
+    />
+
     <script
       src="https://kit.fontawesome.com/b03b11f941.js"
       crossorigin="anonymous"
@@ -21,33 +30,39 @@
   </head>
   <body class="body">
     <header class="header">
-      <h1 class="title">Buscador de series anime</h1>
+      <h1 class="header__title">Buscador de series anime</h1>
       <!-- <button class="js-log-btn">Log</button> -->
-      <div class="header__div">
-        <input
-          class="header--input js-input"
-          type="text"
-          placeholder="Introduce tu serie aquí"
-        />
-      </div>
-      <div class="header__div--button">
-        <button class="header--button js-button">Buscar</button>
-        <button class="header--button js-button-reset">Reset</button>
+      <div class="header__div--wrapper">
+        <div class="header__div--input">
+          <input
+            class="header--input js-input"
+            type="text"
+            placeholder="Introduce aquí tu serie"
+          />
+        </div>
+        <div class="header__div--button">
+          <button class="header--button js-button">Buscar</button>
+          <button class="header--button js-button-reset">Reset</button>
+        </div>
       </div>
     </header>
 
     <main class="page__nav">
-      <nav class="page__nav--series">
-        <div class="page__nav--divcontainer">
-          <h1 class="js-favSeriesTitle page__nav--title"></h1>
-          <ul class="js-favSeriesContainer page__list--favSeries"></ul>
-          <button class="js-btn-delete-allFav btn__fav--deleteAll">
-            Borrar todos
-          </button>
-        </div>
-        <div class="page__nav--divcontainerresults">
-          <h1 class="js-series-results page__nav--results"></h1>
-          <ul class="js-animeSeries page__list--allSeries"></ul>
+      <nav class="page__nav">
+        <div class="page__nav--wrapper">
+          <div class="page__nav--divcontainer">
+            <h1 class="js-favSeriesTitle page__nav--favTitle">
+              <b>Series favoritas</b>
+            </h1>
+            <ul class="js-favSeriesContainer page__list--favSeries"></ul>
+            <button class="hidden js-btn-delete-allFav btn__fav--deleteAll">
+              Borrar todos
+            </button>
+          </div>
+          <div class="page__nav--divcontainerresults">
+            <h1 class="js-series-results page__nav--resultsTitle">Resultados</h1>
+            <ul class="js-animeSeries page__list--allSeries"></ul>
+          </div>
         </div>
       </nav>
     </main>
